@@ -15,28 +15,28 @@ func New(t *testing.T) (tt T) {
 	return T{T: t}
 }
 
-func (tt T) Nil(err error, format string, args ...interface{}) {
+func (tt T) Nil(err error) {
 	if err == nil {
 		return
 	}
 	tt.Helper()
-	tt.fatal(fmt.Sprintf("UNEXPECTED ERR:%v: %s", err, fmt.Sprintf(format, args...)))
+	tt.fatal(fmt.Sprintf("UNEXPECTED ERR:%v", err))
 }
 
-func (tt T) True(ok bool, format string, args ...interface{}) {
+func (tt T) True(ok bool) {
 	if ok {
 		return
 	}
 	tt.Helper()
-	tt.fatal(fmt.Sprintf("FALSE: %s", fmt.Sprintf(format, args...)))
+	tt.fatal("FALSE")
 }
 
-func (tt T) DeepEqual(want, got interface{}, format string, args ...interface{}) {
+func (tt T) DeepEqual(want, got interface{}) {
 	if reflect.DeepEqual(want, got) {
 		return
 	}
 	tt.Helper()
-	tt.fatal(fmt.Sprintf("NOT EQUAL: want:%v got:%v: %s", want, got, fmt.Sprintf(format, args...)))
+	tt.fatal(fmt.Sprintf("NOT EQUAL: want:%v got:%v", want, got))
 }
 
 func (tt T) Logf(format string, args ...interface{}) {
