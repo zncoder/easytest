@@ -20,7 +20,7 @@ func (tt T) Nil(err error, format string, args ...interface{}) {
 		return
 	}
 	tt.Helper()
-	tt.fatal(fmt.Sprintf("UNEXPECTED ERR:%v %s", err, fmt.Sprintf(format, args...)))
+	tt.fatal(fmt.Sprintf("UNEXPECTED ERR:%v: %s", err, fmt.Sprintf(format, args...)))
 }
 
 func (tt T) True(ok bool, format string, args ...interface{}) {
