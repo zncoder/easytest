@@ -44,12 +44,12 @@ func (tt T) True(ok bool, fmtArgs ...interface{}) {
 	tt.fatal("FALSE " + formatArgs(fmtArgs))
 }
 
-func (tt T) DeepEqual(want, got interface{}) {
-	if reflect.DeepEqual(want, got) {
+func (tt T) DeepEqual(a, b interface{}) {
+	if reflect.DeepEqual(a, b) {
 		return
 	}
 	tt.Helper()
-	tt.fatal(fmt.Sprintf("NOT EQUAL: want:%v got:%v", want, got))
+	tt.fatal(fmt.Sprintf("NOT EQUAL: a:%v b:%v", a, b))
 }
 
 func (tt T) Logf(format string, args ...interface{}) {
