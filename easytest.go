@@ -2,7 +2,9 @@ package easytest
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
+	"os"
 	"reflect"
 	"testing"
 )
@@ -61,4 +63,16 @@ func (tt T) Run(name string, f func(T)) bool {
 	return tt.T.Run(name, func(t *testing.T) {
 		f(New(t))
 	})
+}
+
+// NewDir creates a tempdir.
+func (tt T) NewDir() string {
+	dir, err := ioutil.TempDir("", "testdir")
+	tt.Nil(err)
+	return dir
+}
+
+func (tt T) RemoveDir(dir string) {
+	err := os.RemoveAll(dir)
+	tt.Nil(err)
 }
