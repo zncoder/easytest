@@ -17,20 +17,31 @@ func New(t *testing.T) (tt T) {
 	return T{T: t}
 }
 
-func (tt T) Nil(err error) {
+func (tt T) Nil(err error, fmtArgs ...interface{}) {
 	if err == nil {
 		return
 	}
 	tt.Helper()
-	tt.fatal(fmt.Sprintf("UNEXPECTED ERR:%v", err))
+	tt.fatal(fmt.Sprintf("UNEXPECTED ERR:%v %s", err, formatArgs(fmtArgs)))
 }
 
-func (tt T) True(ok bool) {
+func formatArgs(fmtArgs ...interface{}) string {
+	if len(fmtArgs) == 0 {
+		return ""
+	}
+	s, ok := fmtArgs[0].(string)
+	if !ok {
+		log.Fatal("first arg of fmtArgs must be the format string")
+	}
+	return fmt.Sprintf(s, fmtArgs[1:]...)
+}
+
+func (tt T) True(ok bool, fmtArgs ...interface{}) {
 	if ok {
 		return
 	}
 	tt.Helper()
-	tt.fatal("FALSE")
+	tt.fatal("FALSE " + formatArgs(fmtArgs))
 }
 
 func (tt T) DeepEqual(want, got interface{}) {
