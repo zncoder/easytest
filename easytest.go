@@ -25,7 +25,7 @@ func (tt T) Nil(err error, fmtArgs ...interface{}) {
 	tt.fatal(fmt.Sprintf("UNEXPECTED ERR:%v %s", err, formatArgs(fmtArgs)))
 }
 
-func formatArgs(fmtArgs ...interface{}) string {
+func formatArgs(fmtArgs []interface{}) string {
 	if len(fmtArgs) == 0 {
 		return ""
 	}
