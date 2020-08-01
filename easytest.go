@@ -31,7 +31,7 @@ func formatArgs(fmtArgs ...interface{}) string {
 	}
 	s, ok := fmtArgs[0].(string)
 	if !ok {
-		log.Fatal("first arg of fmtArgs must be the format string")
+		log.Fatal("first arg of fmtArgs must be the format string: %v", fmtArgs)
 	}
 	return fmt.Sprintf(s, fmtArgs[1:]...)
 }
